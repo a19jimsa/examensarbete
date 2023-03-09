@@ -4,7 +4,7 @@ import Particle from "./particle.js";
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
- let particles = [];
+ let particles;
  let mStartTime = 0;
  let mTime = 0;
  let mId = 0;
@@ -15,9 +15,8 @@ function init(){
 }
 
 function create(number){
-    for(let i = 0; i < number; i++){
-        particles.push(new Particle());
-    }
+    particles = new Particle(number);
+    particles.init();
 }
 
 function destroy(){
@@ -25,15 +24,12 @@ function destroy(){
 }
 
 function update(){
-    particles.forEach(element => element.update());
-    destroy();
+    particles.update();
 }
 
 function draw(){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    for(let particle of particles){
-        particle.draw();
-    }
+    particles.draw();
 }
 
 function store(){
