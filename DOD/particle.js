@@ -5,26 +5,29 @@ import {ctx, canvas} from "./index.js";
 class Particle{
     constructor(number){
         this.number = number;
-        this.x = new Array(number);
-        this.y = new Array(number);
-        this.vx = new Array(number);
-        this.vy = new Array(number);
-        this.alpha = new Array(number);
-        this.red = new Array(number);
-        this.blue = new Array(number);
-        this.green = new Array(number);
     }
 
     init(){
+        this.x = new Int16Array(this.number);
+        this.y = new Int16Array(this.number);
+        this.vx = new Int8Array(this.number);
+        this.vy = new Int8Array(this.number);
+        this.alpha = new Float32Array(this.number);
+        this.red = new Uint8Array(this.number);
+        this.blue = new Uint8Array(this.number);
+        this.green = new Uint8Array(this.number);
+        this.radius = new Uint8Array(this.number);
+
         for(let i = 0; i < this.number; i++){
             this.x[i] = getRandomInt(0, canvas.clientWidth);
             this.y[i] = getRandomInt(0, canvas.clientHeight);
-            this.vx[i] = getRandomInt(-1, 1);
-            this.vy[i] = getRandomInt(-1, 1);
-            this.red[i] = getRandomInt(0, 255);
-            this.green[i] = getRandomInt(0, 255);
-            this.blue[i] = getRandomInt(0, 255);
+            this.vx[i] = getRandomInt(-5, 5);
+            this.vy[i] = getRandomInt(-5, 5);
+            this.red[i] = getRandomInt(255, 255);
+            this.green[i] = getRandomInt(0, 0);
+            this.blue[i] = getRandomInt(0, 0);
             this.alpha[i] = 1;
+            this.radius[i] = getRandomInt(1, 3);
         }
     }
 
@@ -44,7 +47,7 @@ class Particle{
         for(let i = 0; i < this.number; i++){
             ctx.fillStyle = "rgba("+ this.red[i] +", " + this.green[i] +", "+ this.blue[i] + ", "+ this.alpha[i] +")";
             ctx.beginPath();
-            ctx.arc(this.x[i], this.y[i], 2, 0, Math.PI * 2);
+            ctx.arc(this.x[i], this.y[i], this.radius[i], 0, Math.PI * 2);
             ctx.fill();
         }
     }

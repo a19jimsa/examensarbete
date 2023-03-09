@@ -10,7 +10,7 @@ const ctx = canvas.getContext("2d");
  let mId = 0;
 
 function init(){
-    create(100000);
+    create(1000000);
     loop();
 }
 
