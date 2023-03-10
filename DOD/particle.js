@@ -51,13 +51,6 @@ class Particle{
             ctx.fill();
         }
     }
-
-    isFinished(id){
-        if(this.alpha[id] > 0){
-            return true;
-        }
-        return false;
-    }
 }
 
 export default Particle;

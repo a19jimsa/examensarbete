@@ -4,13 +4,14 @@ import Particle from "./particle.js";
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
- let particles = [];
- let mStartTime = 0;
- let mTime = 0;
- let mId = 0;
+let particles = [];
+let mStartTime = 0;
+let mTime = 0;
+let mId = 0;
+let mFrame = 0;
 
 function init(){
-    create(1000000);
+    create(5000);
     loop();
 }
 
@@ -20,19 +21,20 @@ function create(number){
     }
 }
 
-function destroy(){
-    particles = particles.filter(element => element.isFinished());
+function counter(){
+    mFrame++;
 }
 
 function update(){
-    particles.forEach(element => element.update());
-    destroy();
+    for(let i = 0; i < particles.length; i++){
+        particles[i].update();
+    }
 }
 
 function draw(){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    for(let particle of particles){
-        particle.draw();
+    for(let i = 0; i < particles.length; i++){
+        particles[i].draw();
     }
 }
 
@@ -48,18 +50,18 @@ function loop(){
     mStartTime = performance.now();
     update();
     draw();
-    store();
-    if(particles.length == 0){
-        stop();
+    let now = performance.now();
+    now = now - mStartTime;
+    mTime += now + " frametime in ms \n";
+    console.log(now);
+    counter();
+    if(mFrame == 100){
+        window.cancelAnimationFrame(mId);
     }else{
         mId = window.requestAnimationFrame(loop);
     }
 }
 
-function stop(){
-    window.cancelAnimationFrame(mId);
-    alert("Simulation has stopped!");
-}
 
 window.onload = () => {
     init();

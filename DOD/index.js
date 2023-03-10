@@ -4,13 +4,14 @@ import Particle from "./particle.js";
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
- let particles;
- let mStartTime = 0;
- let mTime = 0;
- let mId = 0;
+let particles;
+let mStartTime = 0;
+let mTime = 0;
+let mId = 0;
+let mFrame = 0;
 
 function init(){
-    create(10000);
+    create(100);
     loop();
 }
 
@@ -19,8 +20,8 @@ function create(number){
     particles.init();
 }
 
-function destroy(){
-    particles = particles.filter(element => element.isFinished());
+function counter(){
+    mFrame++;
 }
 
 function update(){
@@ -33,20 +34,19 @@ function draw(){
 }
 
 function store(){
-    let now = performance.now();
-    now = now - mStartTime;
-    mTime += now + " frametime in ms \n";
-    window.localStorage.setItem("frame", mTime);
-    console.log(now);
+    
 }
 
 function loop(){
     mStartTime = performance.now();
     update();
+    let now = performance.now();
+    now = now - mStartTime;
+    console.log(now);
     draw();
-    store();
-    if(particles.length == 0){
-        stop();
+    counter();
+    if(mFrame == 100){
+        window.cancelAnimationFrame(mId);
     }else{
         mId = window.requestAnimationFrame(loop);
     }
