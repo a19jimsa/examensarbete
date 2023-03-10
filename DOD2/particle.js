@@ -8,15 +8,15 @@ class Particle{
     }
 
     init(){
-        this.x = new Array(this.number);
-        this.y = new Array(this.number);
-        this.vx = new Array(this.number);
-        this.vy = new Array(this.number);
-        this.alpha = new Array(this.number);
-        this.red = new Array(this.number);
-        this.blue = new Array(this.number);
-        this.green = new Array(this.number);
-        this.radius = new Array(this.number);
+        this.x = new Int16Array(this.number);
+        this.y = new Int16Array(this.number);
+        this.vx = new Int16Array(this.number);
+        this.vy = new Int16Array(this.number);
+        this.alpha = new Float32Array(this.number);
+        this.red = new Uint8Array(this.number);
+        this.blue = new Uint8Array(this.number);
+        this.green = new Uint8Array(this.number);
+        this.radius = new Int8Array(this.number);
 
         for(let i = 0; i < this.number; i++){
             this.x[i] = getRandomInt(0, canvas.clientWidth);

@@ -1,5 +1,5 @@
 "use strict";
-import getRandomInt from "./random.js";
+import getRandomInt from "../Util/random.js";
 import {ctx, canvas} from "./index.js";
 
 class Particle{
