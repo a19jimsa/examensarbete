@@ -11,7 +11,7 @@ let mId = 0;
 let mFrame = 0;
 
 function init(){
-    create(100);
+    create(50000);
     loop();
 }
 
@@ -40,10 +40,10 @@ function store(){
 function loop(){
     mStartTime = performance.now();
     update();
+    draw();
     let now = performance.now();
     now = now - mStartTime;
     console.log(now);
-    draw();
     counter();
     if(mFrame == 100){
         window.cancelAnimationFrame(mId);

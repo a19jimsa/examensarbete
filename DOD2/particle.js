@@ -10,8 +10,8 @@ class Particle{
     init(){
         this.x = new Int16Array(this.number);
         this.y = new Int16Array(this.number);
-        this.vx = new Int16Array(this.number);
-        this.vy = new Int16Array(this.number);
+        this.vx = new Int8Array(this.number);
+        this.vy = new Int8Array(this.number);
         this.alpha = new Float32Array(this.number);
         this.red = new Uint8Array(this.number);
         this.blue = new Uint8Array(this.number);
@@ -43,7 +43,6 @@ class Particle{
     draw(){
         for(let i = 0; i < this.number; i++){
             ctx.fillStyle = "rgba("+ this.red[i] +", " + this.green[i] +", "+ this.blue[i] + ", "+ this.alpha[i] +")";
-            ctx.beginPath();
             ctx.fillRect(this.x[i], this.y[i], this.radius[i], this.radius[i]);
         }
     }
