@@ -13,7 +13,7 @@ let data ="data:text/csv;charset=utf-8,\nMS";
 let seed = 0;
 
 function init(){
-    create(100000);
+    create(1000);
     loop();
 }
 
@@ -23,10 +23,6 @@ function create(number){
         Math.setSeed(seed);
         particles.push(new Particle());
     }
-}
-
-function counter(){
-    mFrame++;
 }
 
 function update(){
@@ -58,7 +54,7 @@ function loop(){
     now = now - mStartTime;
     data += ",\n" + now;
     mFrame++;
-    if(mFrame == 1000){
+    if(mFrame == 100){
         window.cancelAnimationFrame(mId);
         store(data, "OOP");
     }else{

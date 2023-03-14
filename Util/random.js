@@ -1,4 +1,5 @@
 'use strict';
+/*
 function jsf32(a, b, c, d) {
     a |= 0; b |= 0; c |= 0; d |= 0;
     var t = a - (b << 23 | b >>> 9) | 0;
@@ -23,9 +24,13 @@ Math.setSeed = function(seed){
 
 var origRandom = Math.random;
 Math.randSeed = Math.floor(Date.now());
-
+*/
 function getRandomInt(min, max){
     return Math.floor(Math.random() * (max - min) + min);
 }
 
-export default getRandomInt;
+function getRandomFloat(min, max){
+    return Math.random() * (max - min) + min;
+}
+
+export {getRandomInt, getRandomFloat};
