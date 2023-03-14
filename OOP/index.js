@@ -10,15 +10,17 @@ let mStartTime = 0;
 let mId = 0;
 let mFrame = 0;
 let data ="data:text/csv;charset=utf-8,\nMS";
+let seed = 0;
 
 function init(){
-    create(1000);
+    create(100000);
     loop();
 }
 
 function create(number){
     for(let i = 0; i < number; i++){
-        Math.setSeed(i);
+        seed++;
+        Math.setSeed(seed);
         particles.push(new Particle());
     }
 }
@@ -30,6 +32,14 @@ function counter(){
 function update(){
     for(let i = 0; i < particles.length; i++){
         particles[i].update();
+    }
+    for(let i = 0; i < particles.length; i++){
+        let particle = particles[i];
+        if(particle.lifeTime < 0){
+            seed++;
+            Math.setSeed(seed);
+            particles[i] = new Particle();
+        }
     }
 }
 
@@ -48,7 +58,7 @@ function loop(){
     now = now - mStartTime;
     data += ",\n" + now;
     mFrame++;
-    if(mFrame == 100){
+    if(mFrame == 1000){
         window.cancelAnimationFrame(mId);
         store(data, "OOP");
     }else{

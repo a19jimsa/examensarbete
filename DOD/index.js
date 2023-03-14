@@ -9,10 +9,10 @@ let particles;
 let mStartTime = 0;
 let mId = 0;
 let mFrame = 0;
-let data ="data:text/csv;charset=utf-8,\nMS";
+let data ="data:text/text;charset=utf-8,\nMS";
 
 function init(){
-    create(1000);
+    create(10000);
     loop();
 }
 

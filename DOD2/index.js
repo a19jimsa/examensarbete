@@ -6,13 +6,13 @@ const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
 let particles;
-let mStartTime = 0;
+let mStartTime = 0.0;
 let mId = 0;
-let mFrame = 0;
-let data ="data:text/csv;charset=utf-8,\nMS";
+let mFrame = 0.0;
+let data ="data:text/text;charset=utf-8,\nMS";
 
 function init(){
-    create(1000);
+    create(100000);
     loop();
 }
 

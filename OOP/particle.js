@@ -13,12 +13,14 @@ class Particle{
         this.blue = getRandomInt(0, 255);
         this.alpha = 1;
         this.radius = getRandomInt(5, 10);
+        this.lifeTime = getRandomInt(1, 100);
     }
 
     update(){
         this.x += this.vx;
         this.y += this.vy;
-        //this.alpha -= 0.001;
+        this.alpha -= 0.01;
+        this.lifeTime -= 1;
     }
 
     draw(){
