@@ -11,7 +11,7 @@ let mId = 0;
 let mFrame = 0;
 
 function init(){
-    create(10000000);
+    create(1000);
     loop();
 }
 
@@ -44,7 +44,7 @@ function store(){
 function loop(){
     mStartTime = performance.now();
     update();
-    //draw();
+    draw();
     let now = performance.now();
     now = now - mStartTime;
     console.log(now);

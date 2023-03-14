@@ -27,7 +27,7 @@ class Particle{
             this.green[i] = getRandomInt(0, 255);
             this.blue[i] = getRandomInt(0, 255);
             this.alpha[i] = 1;
-            this.radius[i] = getRandomInt(10, 30);
+            this.radius[i] = getRandomInt(1, 3);
         }
     }
 
@@ -38,16 +38,12 @@ class Particle{
         for(let i = 0; i < this.number; i++){
             this.y[i] += this.vy[i];
         }
-        for(let i = 0; i < this.number; i++){
-            this.alpha[i] -= 0.01;
-        }
     }
 
     draw(){
         for(let i = 0; i < this.number; i++){
             ctx.fillStyle = "rgba("+ this.red[i] +", " + this.green[i] +", "+ this.blue[i] + ", "+ this.alpha[i] +")";
-            ctx.beginPath();
-            ctx.fillRect(this.x[i], this.y[i], this.radius[i],this.radius[i]);
+            ctx.fillRect(this.x[i], this.y[i], this.radius[i], this.radius[i]);
         }
     }
 }

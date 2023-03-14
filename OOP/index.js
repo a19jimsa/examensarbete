@@ -1,4 +1,5 @@
 "use strict";
+import getRandomInt from "../Util/random.js";
 import Particle from "./particle.js";
 
 const canvas = document.getElementById("canvas");
@@ -11,7 +12,7 @@ let mId = 0;
 let mFrame = 0;
 
 function init(){
-    create(10000000);
+    create(10000);
     loop();
 }
 

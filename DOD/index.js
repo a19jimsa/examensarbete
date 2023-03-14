@@ -11,7 +11,7 @@ let mId = 0;
 let mFrame = 0;
 
 function init(){
-    create(50000);
+    create(1000);
     loop();
 }
 

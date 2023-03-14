@@ -27,7 +27,7 @@ class Particle{
             this.green[i] = getRandomInt(0, 255);
             this.blue[i] = getRandomInt(0, 255);
             this.alpha[i] = 1;
-            this.radius[i] = getRandomInt(10, 30);
+            this.radius[i] = getRandomInt(5, 10);
         }
     }
 
@@ -45,13 +45,6 @@ class Particle{
             ctx.fillStyle = "rgba("+ this.red[i] +", " + this.green[i] +", "+ this.blue[i] + ", "+ this.alpha[i] +")";
             ctx.fillRect(this.x[i], this.y[i], this.radius[i], this.radius[i]);
         }
-    }
-
-    isFinished(id){
-        if(this.alpha[id] > 0){
-            return true;
-        }
-        return false;
     }
 }
 
