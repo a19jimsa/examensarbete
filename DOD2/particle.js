@@ -19,6 +19,7 @@ class Particle{
         this.radius = new Int8Array(this.number);
 
         for(let i = 0; i < this.number; i++){
+            Math.setSeed(i);
             this.x[i] = getRandomInt(0, canvas.clientWidth);
             this.y[i] = getRandomInt(0, canvas.clientHeight);
             this.vx[i] = getRandomInt(-5, 5);

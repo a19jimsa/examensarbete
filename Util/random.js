@@ -24,11 +24,8 @@ Math.setSeed = function(seed){
 var origRandom = Math.random;
 Math.randSeed = Math.floor(Date.now());
 
-Math.setSeed(100);
-
 function getRandomInt(min, max){
     return Math.floor(Math.random() * (max - min) + min);
 }
-
 
 export default getRandomInt;
