@@ -1,14 +1,14 @@
 "use strict";
-import getRandomInt from "../Util/random.js";
+import {getRandomFloat, getRandomInt} from "../Util/random.js";
 import {ctx, canvas} from "./index.js";
 
 class Particle{
     constructor(number){
         this.number = number;
-        this.seed = 0;
     }
 
     init(){
+        Math.setSeed(10);
         this.x = new Int16Array(this.number);
         this.y = new Int16Array(this.number);
         this.vx = new Int8Array(this.number);
@@ -21,8 +21,6 @@ class Particle{
         this.lifeTime = new Int8Array(this.number);
 
         for(let i = 0; i < this.number; i++){
-            this.seed++;
-            Math.setSeed(this.seed);
             this.x[i] = getRandomInt(0, canvas.clientWidth);
             this.y[i] = getRandomInt(0, canvas.clientHeight);
             this.vx[i] = getRandomInt(-5, 5);
@@ -30,9 +28,7 @@ class Particle{
             this.red[i] = getRandomInt(0, 255);
             this.green[i] = getRandomInt(0, 255);
             this.blue[i] = getRandomInt(0, 255);
-            this.alpha[i] = 1;
             this.radius[i] = getRandomInt(5, 10);
-            this.lifeTime[i] = getRandomInt(1, 100);
         }
     }
 
@@ -43,32 +39,11 @@ class Particle{
         for(let i = 0; i < this.number; i++){
             this.y[i] += this.vy[i];
         }
-        for(let i = 0; i < this.number; i++){
-            this.lifeTime[i] -= 1;
-            if(this.lifeTime[i] < 0){
-                this.createParticle(i);
-            }
-        }
-    }
-
-    createParticle(id){
-        this.seed++;
-        Math.setSeed(this.seed);
-        this.x[id] = getRandomInt(0, canvas.clientWidth);
-        this.y[id] = getRandomInt(0, canvas.clientHeight);
-        this.vx[id] = getRandomInt(-5, 5);
-        this.vy[id] = getRandomInt(-5, 5);
-        this.red[id] = getRandomInt(0, 255);
-        this.green[id] = getRandomInt(0, 255);
-        this.blue[id] = getRandomInt(0, 255);
-        this.alpha[id] = 1;
-        this.radius[id] = getRandomInt(5, 10);
-        this.lifeTime[id] = getRandomInt(1, 100);
     }
 
     draw(){
         for(let i = 0; i < this.number; i++){
-            ctx.fillStyle = "rgba("+ this.red[i] +", " + this.green[i] +", "+ this.blue[i] + ", "+ this.alpha[i] +")";
+            ctx.fillStyle = "rgba("+ this.red[i] +", " + this.green[i] +", "+ this.blue[i] + ", "+ 0.5 +")";
             ctx.fillRect(this.x[i], this.y[i], this.radius[i], this.radius[i]);
         }
     }

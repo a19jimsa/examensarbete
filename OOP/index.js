@@ -10,17 +10,15 @@ let mStartTime = 0;
 let mId = 0;
 let mFrame = 0;
 let data ="data:text/csv;charset=utf-8,\nMS";
-let seed = 0;
 
 function init(){
-    create(1000);
-    loop();
+    Math.setSeed(10);
+    create(100000);
+    window.requestAnimationFrame(loop);
 }
 
 function create(number){
     for(let i = 0; i < number; i++){
-        seed++;
-        Math.setSeed(seed);
         particles.push(new Particle());
     }
 }
@@ -28,14 +26,6 @@ function create(number){
 function update(){
     for(let i = 0; i < particles.length; i++){
         particles[i].update();
-    }
-    for(let i = 0; i < particles.length; i++){
-        let particle = particles[i];
-        if(particle.lifeTime < 0){
-            seed++;
-            Math.setSeed(seed);
-            particles[i] = new Particle();
-        }
     }
 }
 

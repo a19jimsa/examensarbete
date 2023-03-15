@@ -12,8 +12,9 @@ let mFrame = 0;
 let data ="data:text/text;charset=utf-8,\nMS";
 
 function init(){
-    create(10000);
-    loop();
+    Math.setSeed(10);
+    create(100000);
+    window.requestAnimationFrame(loop);
 }
 
 function create(number){

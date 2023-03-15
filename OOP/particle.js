@@ -1,5 +1,5 @@
 "use strict";
-import getRandomInt from "../Util/random.js";
+import {getRandomInt, getRandomFloat} from "../Util/random.js";
 import {ctx, canvas} from "./index.js";
 
 class Particle{
@@ -11,20 +11,16 @@ class Particle{
         this.red = getRandomInt(0, 255);
         this.green = getRandomInt(0, 255);
         this.blue = getRandomInt(0, 255);
-        this.alpha = 1;
         this.radius = getRandomInt(5, 10);
-        this.lifeTime = getRandomInt(1, 100);
     }
 
     update(){
         this.x += this.vx;
         this.y += this.vy;
-        this.alpha -= 0.01;
-        this.lifeTime -= 1;
     }
 
     draw(){
-        ctx.fillStyle = "rgba("+this.red+", " + this.green +", " + this.blue +", " + this.alpha + ")";
+        ctx.fillStyle = "rgba("+this.red+", " + this.green +", " + this.blue +", " + 0.5 + ")";
         ctx.beginPath();
         ctx.fillRect(this.x, this.y, this.radius, this.radius);
     }

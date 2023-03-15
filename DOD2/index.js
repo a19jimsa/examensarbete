@@ -12,8 +12,9 @@ let mFrame = 0.0;
 let data ="data:text/text;charset=utf-8,\nMS";
 
 function init(){
+    Math.setSeed(10);
     create(100000);
-    loop();
+    window.requestAnimationFrame(loop);
 }
 
 function create(number){
@@ -33,7 +34,7 @@ function draw(){
 function loop(){
     mStartTime = performance.now();
     update();
-    draw();
+    //draw();
     let now = performance.now();
     now = now - mStartTime;
     data += ",\n" + now;
