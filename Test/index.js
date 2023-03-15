@@ -5,16 +5,18 @@ const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
 var particles = [];
+var seed = 0;
 
 function init(){
-    loop();
+    window.requestAnimationFrame(loop);
 }
 
 function create(number){
     for(let i = 0; i < number; i++){
+        seed++;
+        Math.setSeed(seed);
         particles.push(new Particle());
     }
-    
 }
 
 function update(){
@@ -32,7 +34,7 @@ function draw(){
 }
 
 function loop(){
-    create(100);
+    create(1000);
     update();
     document.getElementById("number").innerText = particles.length + "";
     draw();

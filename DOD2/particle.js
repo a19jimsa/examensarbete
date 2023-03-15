@@ -1,5 +1,5 @@
 "use strict";
-import {getRandomFloat, getRandomInt} from "../Util/random.js";
+import {getRandomInt} from "../Util/random.js";
 import {ctx, canvas} from "./index.js";
 
 class Particle{
@@ -13,12 +13,10 @@ class Particle{
         this.y = new Int16Array(this.number);
         this.vx = new Int8Array(this.number);
         this.vy = new Int8Array(this.number);
-        this.alpha = new Float32Array(this.number);
         this.red = new Uint8Array(this.number);
         this.blue = new Uint8Array(this.number);
         this.green = new Uint8Array(this.number);
         this.radius = new Int8Array(this.number);
-        this.lifeTime = new Int8Array(this.number);
 
         for(let i = 0; i < this.number; i++){
             this.x[i] = getRandomInt(0, canvas.clientWidth);

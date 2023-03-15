@@ -13,7 +13,7 @@ let data ="data:text/text;charset=utf-8,\nMS";
 
 function init(){
     Math.setSeed(10);
-    create(100000);
+    create(200000);
     window.requestAnimationFrame(loop);
 }
 

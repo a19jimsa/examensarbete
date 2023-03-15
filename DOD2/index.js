@@ -6,14 +6,14 @@ const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
 let particles;
-let mStartTime = 0.0;
+let mStartTime = 0;
 let mId = 0;
-let mFrame = 0.0;
+let mFrame = 0;
 let data ="data:text/text;charset=utf-8,\nMS";
 
 function init(){
     Math.setSeed(10);
-    create(100000);
+    create(200000);
     window.requestAnimationFrame(loop);
 }
 
@@ -34,7 +34,7 @@ function draw(){
 function loop(){
     mStartTime = performance.now();
     update();
-    //draw();
+    draw();
     let now = performance.now();
     now = now - mStartTime;
     data += ",\n" + now;
