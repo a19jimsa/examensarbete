@@ -1,5 +1,5 @@
 "use strict";
-import {getRandomInt} from "../Util/random.js";
+import {getRandomFloat, getRandomInt} from "../Util/random.js";
 import {ctx, canvas} from "./index.js";
 
 class Particle{
@@ -18,14 +18,15 @@ class Particle{
         this.radius = new Array(this.number);
 
         for(let i = 0; i < this.number; i++){
-            this.x[i] = getRandomInt(0, canvas.clientWidth);
-            this.y[i] = getRandomInt(0, canvas.clientHeight);
-            this.vx[i] = getRandomInt(-5, 5);
-            this.vy[i] = getRandomInt(-5, 5);
-            this.red[i] = getRandomInt(0, 255);
-            this.green[i] = getRandomInt(0, 255);
-            this.blue[i] = getRandomInt(0, 255);
-            this.radius[i] = getRandomInt(5, 10);
+            Math.setSeed(i);
+            this.x[i] = getRandomFloat(0, canvas.clientWidth);
+            this.y[i] = getRandomFloat(0, canvas.clientHeight);
+            this.vx[i] = getRandomFloat(-1, 1);
+            this.vy[i] = getRandomFloat(-1, 1);
+            this.red[i] = getRandomFloat(0, 255);
+            this.green[i] = getRandomFloat(0, 255);
+            this.blue[i] = getRandomFloat(0, 255);
+            this.radius[i] = getRandomFloat(5, 10);
         }
     }
 
@@ -40,7 +41,7 @@ class Particle{
 
     draw(){
         for(let i = 0; i < this.number; i++){
-            ctx.fillStyle = "rgba("+ this.red[i] +", " + this.green[i] +", "+ this.blue[i] + ", "+ 0.5 +")";
+            ctx.fillStyle = "rgba("+ this.red[i] +", " + this.green[i] +", "+ this.blue[i] + ", "+ 0.8 +")";
             ctx.fillRect(this.x[i], this.y[i], this.radius[i], this.radius[i]);
         }
     }

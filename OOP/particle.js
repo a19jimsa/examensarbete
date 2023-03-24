@@ -21,7 +21,6 @@ class Particle{
 
     draw(){
         ctx.fillStyle = "rgba("+this.red+", " + this.green +", " + this.blue +", " + 0.8 + ")";
-        ctx.beginPath();
         ctx.fillRect(this.x, this.y, this.radius, this.radius);
     }
 }

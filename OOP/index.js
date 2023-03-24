@@ -13,7 +13,7 @@ let data ="data:text/csv;charset=utf-8,\nUpdatetime, Rendertime, Sum, MS";
 let mRenderStartTime = 0;
 
 function init(){
-    create(1000000);
+    create(100000);
     window.requestAnimationFrame(loop);
 }
 
@@ -56,7 +56,6 @@ function loop() {
     while (accum >= dt) {
         // Update the game's internal state (i.e. physics, logic, etc)
         update();
-        document.getElementById("number").innerHTML = particles.length + "";
         console.log(Math.floor(performance.now()/1000));
         // Subtract one "timestep" from the accumulator
         accum -= dt;
