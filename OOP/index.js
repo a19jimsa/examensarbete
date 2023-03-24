@@ -9,16 +9,17 @@ let particles = [];
 let mStartTime = 0;
 let mId = 0;
 let mFrame = 0;
-let data ="data:text/csv;charset=utf-8,\nMS";
+let data ="data:text/csv;charset=utf-8,\nUpdatetime, Rendertime, Sum, MS";
+let mRenderStartTime = 0;
 
 function init(){
-    Math.setSeed(10);
-    create(1000000);
+    create(31000);
     window.requestAnimationFrame(loop);
 }
 
 function create(number){
     for(let i = 0; i < number; i++){
+        Math.setSeed(i);
         particles.push(new Particle());
     }
 }
@@ -42,7 +43,6 @@ var accum = 0;
 //Updates per second
 var dt = 1000 / 20;
 function loop() {
-    mStartTime = performance.now();
     // Figure out how long it's been since the last invocation
     var delta = performance.now() - lastCall;
 
@@ -52,6 +52,7 @@ function loop() {
     // Add the delta to the "accumulator"
     accum += delta;
 
+    mStartTime = performance.now();
     // As long as the accumulated time passed is greater than your "timestep"
     while (accum >= dt) {
         // Update the game's internal state (i.e. physics, logic, etc)
@@ -61,17 +62,21 @@ function loop() {
         // Subtract one "timestep" from the accumulator
         accum -= dt;
     }
+    let now = performance.now();
+    let elapsedUpdateTime = now - mStartTime;
     //console.log(Math.floor(performance.now()/1000));
+
+    mRenderStartTime = performance.now();
     // Finally, render the current state to the screen
     draw();
-    mFrame++;
 
     //Save the elapsed time
-    let now = performance.now();
-    now = now - mStartTime;
-    data += ",\n" + now;
+    now = performance.now();
+    let elapsedRenderTime = now - mRenderStartTime;
+    let sum = elapsedRenderTime + elapsedUpdateTime;
+    data += ",\n" + elapsedUpdateTime + ", " + elapsedRenderTime + ", " + sum;
     mFrame++;
-    if(mFrame >= 100){
+    if(mFrame == 10){
         window.cancelAnimationFrame(mId);
         store(data, "OOP");
     }else{

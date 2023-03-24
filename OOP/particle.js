@@ -4,14 +4,14 @@ import {ctx, canvas} from "./index.js";
 
 class Particle{
     constructor(){
-        this.x = getRandomInt(0, canvas.clientWidth);
-        this.y = getRandomInt(0, canvas.clientHeight);
-        this.vx = getRandomInt(-5, 5);
-        this.vy = getRandomInt(-5, 5);
-        this.red = getRandomInt(0, 255);
-        this.green = getRandomInt(0, 255);
-        this.blue = getRandomInt(0, 255);
-        this.radius = getRandomInt(5, 10);
+        this.x = getRandomFloat(0, canvas.clientWidth);
+        this.y = getRandomFloat(0, canvas.clientHeight);
+        this.vx = getRandomFloat(-1, 1);
+        this.vy = getRandomFloat(-1, 1);
+        this.red = getRandomFloat(0, 255);
+        this.green = getRandomFloat(0, 255);
+        this.blue = getRandomFloat(0, 255);
+        this.radius = getRandomFloat(5, 10);
     }
 
     update(){
@@ -20,7 +20,7 @@ class Particle{
     }
 
     draw(){
-        ctx.fillStyle = "rgba("+this.red+", " + this.green +", " + this.blue +", " + 0.5 + ")";
+        ctx.fillStyle = "rgba("+this.red+", " + this.green +", " + this.blue +", " + 0.8 + ")";
         ctx.beginPath();
         ctx.fillRect(this.x, this.y, this.radius, this.radius);
     }
