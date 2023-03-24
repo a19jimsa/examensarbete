@@ -53,7 +53,7 @@ function loop() {
     while (accum >= dt) {
         // Update the game's internal state (i.e. physics, logic, etc)
         update();
-        create(10);
+        create(100);
         document.getElementById("number").innerHTML = particles.length + "";
         console.log(Math.floor(performance.now()/1000));
         // Subtract one "timestep" from the accumulator

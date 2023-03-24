@@ -6,7 +6,7 @@ class Particle{
     constructor(){
         this.x = canvas.clientWidth / 2;
         this.y = canvas.clientHeight + 10;
-        this.vx = getRandomFloat(-3, 3);  
+        this.vx = getRandomFloat(-2, 2);  
         this.vy = getRandomFloat(-1, -20);
         this.blue = getRandomInt(0, 0);;
         this.green = getRandomInt(255, 255);
@@ -27,10 +27,10 @@ class Particle{
     }
 
     draw(){
-        ctx.strokeStyle = "rgba("+ this.red +", " + this.green +", " + this.blue +", " + this.alpha + ")";
+        ctx.fillStyle = "rgba("+ this.red +", " + this.green +", " + this.blue +", " + this.alpha + ")";
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.stroke();
+        ctx.fill();
     }
 
     isFinished(){
