@@ -9,6 +9,7 @@ var particles = [];
 var seed = 0;
 
 function init(){
+    //create(10000);
     window.requestAnimationFrame(loop);
 }
 
@@ -35,38 +36,53 @@ function draw(){
 }
 
 var currentTime = getCurrentTime();
-var accum = 0;
+var lag = 0;
+var currentParticles = particles;;
+
 //Updates per second
-var dt = 1000 / 60;
+var frameDuration = 1000 / 20;
 var t = 0.0;
 function loop() {
-    
     var newTime = getCurrentTime();
     // Figure out how long it's been since the last invocation
-    var frameTime = newTime - currentTime;
-
-    //Cache the current timestep so we can figure out the next delta
-    currentTime = newTime;
+    var delta = newTime - currentTime;
+    if(delta > 1000){
+        delta = frameDuration;
+    }
 
     // Add the delta to the "accumulator"
-    //accum += delta;
+    lag += delta;
 
     // As long as the accumulated time passed is greater than your "timestep"
-    while (frameTime > 0.0) {
-        var deltaTime = Math.min(frameTime, dt);
-        create(10);
+    while (lag >= frameDuration) {
+        create(1000);
+        //var deltaTime = Math.min(frameTime, dt);
+        currentParticles = particles;
         // Update the game's internal state (i.e. physics, logic, etc)
         update();
-        frameTime -= deltaTime;
-        console.log(Math.floor(performance.now()/1000));
+        document.getElementById("number").innerText = particles.length + "";
+        console.log(Math.floor(performance.now() / 1000));
         // Subtract one "timestep" from the accumulator
+        lag -= frameDuration;
         //accum -= dt;
-        t += deltaTime;
+        //t += dt;
     }
+    let lagOffset = lag / frameDuration;
+    console.log(lagOffset);
+    interpolate(lagOffset);
     //console.log(Math.floor(performance.now()/1000));
     // Finally, render the current state to the screen
     draw();
     window.requestAnimationFrame(loop);
+}
+
+function interpolate(lagOffset){
+    if(currentParticles.length <= 0){
+        for(var i = 0; i < particles.length; i++){
+            (particles[i].x - currentParticles[i].x) * lagOffset + this.particles[i].x;
+            (particles[i].y - currentParticles[i].y) * lagOffset + this.particles[i].y;
+        }
+    }
 }
 
 window.onload = () => {
@@ -74,5 +90,5 @@ window.onload = () => {
 }
 
 export {
-    ctx, canvas, dt
+    ctx, canvas
 };

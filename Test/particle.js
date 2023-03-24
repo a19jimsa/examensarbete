@@ -6,7 +6,7 @@ class Particle{
     constructor(){
         this.x = canvas.clientWidth / 2;
         this.y = canvas.clientHeight + 10;
-        this.vx = getRandomFloat(-5, 5);  
+        this.vx = getRandomFloat(-2, 2);  
         this.vy = getRandomFloat(-1, -20);
         this.blue = getRandomInt(0, 0);;
         this.green = getRandomInt(255, 255);
@@ -23,7 +23,7 @@ class Particle{
         this.x += this.vx;
         this.y += this.vy;
         //this.green = 100 + Math.sin(this.i * 0.01) * 100 + this.lifeTime;
-        this.green -= this.lifeTime-this.vy/3;
+        this.green -= this.lifeTime-this.vy/2;
         this.i++;
         this.lifeTime += 0.5;
     }
