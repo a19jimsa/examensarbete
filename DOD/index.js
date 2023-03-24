@@ -75,6 +75,7 @@ function loop() {
         mId = window.requestAnimationFrame(loop);
     }
 }
+
 window.onload = () => {
     init();
 }

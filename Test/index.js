@@ -34,34 +34,39 @@ function draw(){
     }
 }
 
-var lastCall = performance.now();
+var currentTime = getCurrentTime();
 var accum = 0;
 //Updates per second
 var dt = 1000 / 60;
+var t = 0.0;
 function loop() {
-    window.requestAnimationFrame(loop);
+    
+    var newTime = getCurrentTime();
     // Figure out how long it's been since the last invocation
-    var delta = performance.now() - lastCall;
+    var frameTime = newTime - currentTime;
 
     //Cache the current timestep so we can figure out the next delta
-    lastCall = performance.now();
+    currentTime = newTime;
 
     // Add the delta to the "accumulator"
-    accum += delta;
+    //accum += delta;
 
     // As long as the accumulated time passed is greater than your "timestep"
-    while (accum >= dt) {
+    while (frameTime > 0.0) {
+        var deltaTime = Math.min(frameTime, dt);
+        create(10);
         // Update the game's internal state (i.e. physics, logic, etc)
         update();
-        create(100);
-        document.getElementById("number").innerHTML = particles.length + "";
+        frameTime -= deltaTime;
         console.log(Math.floor(performance.now()/1000));
         // Subtract one "timestep" from the accumulator
-        accum -= dt;
+        //accum -= dt;
+        t += deltaTime;
     }
     //console.log(Math.floor(performance.now()/1000));
     // Finally, render the current state to the screen
     draw();
+    window.requestAnimationFrame(loop);
 }
 
 window.onload = () => {
