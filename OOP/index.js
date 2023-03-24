@@ -13,7 +13,7 @@ let data ="data:text/csv;charset=utf-8,\nUpdatetime, Rendertime, Sum, MS";
 let mRenderStartTime = 0;
 
 function init(){
-    create(31000);
+    create(1000000);
     window.requestAnimationFrame(loop);
 }
 
@@ -36,7 +36,6 @@ function draw(){
         particles[i].draw();
     }
 }
-
 
 var lastCall = performance.now();
 var accum = 0;
