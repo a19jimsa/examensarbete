@@ -28,17 +28,7 @@ class Particle{
         this.lifeTime += 0.5;
     }
 
-    interpolate(lagOffset){
-        // use the lagOffset and the sprites previous x/y pos to interpolate
-      // the position
-      this.displayX = (typeof this.previousX !== "undefined") ? 
-      (this.x - this.previousX) * lagOffset + this.previousX : this.x;
-    this.displayY = (typeof this.previousY !== "undefined") ? 
-      (this.y - this.previousY) * lagOffset + this.previousY : this.y;
-    }
-
     draw(lagOffset){
-        this.interpolate(lagOffset);
         ctx.fillStyle = "rgba("+ this.red +", " + this.green +", " + this.blue +", " + this.alpha + ")";
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);

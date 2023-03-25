@@ -35,17 +35,19 @@ function draw(){
     }
 }
 
-var currentTime = getCurrentTime();
+var previous = getCurrentTime();
 var lag = 0;
-var currentParticles = particles;;
+var previousParticles = particles;
 
 //Updates per second
-var frameDuration = 1000 / 20;
+var frameDuration = 1000 / 60;
 var t = 0.0;
 function loop() {
-    var newTime = getCurrentTime();
+    window.requestAnimationFrame(loop);
+
+    var now = getCurrentTime();
     // Figure out how long it's been since the last invocation
-    var delta = newTime - currentTime;
+    var delta = now - previous;
     if(delta > 1000){
         delta = frameDuration;
     }
@@ -57,30 +59,29 @@ function loop() {
     while (lag >= frameDuration) {
         create(1000);
         //var deltaTime = Math.min(frameTime, dt);
-        currentParticles = particles;
+        previousParticles = particles;
         // Update the game's internal state (i.e. physics, logic, etc)
         update();
         document.getElementById("number").innerText = particles.length + "";
-        console.log(Math.floor(performance.now() / 1000));
+
         // Subtract one "timestep" from the accumulator
         lag -= frameDuration;
-        //accum -= dt;
-        //t += dt;
     }
     let lagOffset = lag / frameDuration;
-    console.log(lagOffset);
-    interpolate(lagOffset);
+    //console.log(Math.floor(lagOffset*10)/10);
+    interpolate(Math.floor(lagOffset*10)/10);
     //console.log(Math.floor(performance.now()/1000));
     // Finally, render the current state to the screen
     draw();
-    window.requestAnimationFrame(loop);
+
+    previous = now;
 }
 
 function interpolate(lagOffset){
-    if(currentParticles.length <= 0){
+    if(previousParticles.length >= 0){
         for(var i = 0; i < particles.length; i++){
-            (particles[i].x - currentParticles[i].x) * lagOffset + this.particles[i].x;
-            (particles[i].y - currentParticles[i].y) * lagOffset + this.particles[i].y;
+            particles[i].x * lagOffset + previousParticles[i].x * (1.0 - lagOffset);
+            particles[i].y * lagOffset + previousParticles[i].y * (1.0 - lagOffset);
         }
     }
 }
