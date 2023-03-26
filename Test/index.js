@@ -9,7 +9,6 @@ var particles = [];
 var seed = 0;
 
 function init(){
-    //create(10000);
     window.requestAnimationFrame(loop);
 }
 
@@ -38,6 +37,7 @@ function draw(){
 var previous = getCurrentTime();
 var lag = 0;
 var previousParticles = particles;
+var frame = 0;
 
 //Updates per second
 var frameDuration = 1000 / 60;
@@ -51,13 +51,13 @@ function loop() {
     if(delta > 1000){
         delta = frameDuration;
     }
-
     // Add the delta to the "accumulator"
     lag += delta;
-
     // As long as the accumulated time passed is greater than your "timestep"
     while (lag >= frameDuration) {
-        create(1000);
+        if(frame % 100 === 0){
+            create(1000);
+        }
         //var deltaTime = Math.min(frameTime, dt);
         previousParticles = particles;
         // Update the game's internal state (i.e. physics, logic, etc)
@@ -66,11 +66,13 @@ function loop() {
 
         // Subtract one "timestep" from the accumulator
         lag -= frameDuration;
+        // increase frame
+        frame++;
     }
     let lagOffset = lag / frameDuration;
     //console.log(Math.floor(lagOffset*10)/10);
     interpolate(Math.floor(lagOffset*10)/10);
-    //console.log(Math.floor(performance.now()/1000));
+    
     // Finally, render the current state to the screen
     draw();
 
