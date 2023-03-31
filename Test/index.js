@@ -7,8 +7,16 @@ const ctx = canvas.getContext("2d");
 
 var particles = [];
 var seed = 0;
+var x;
+var y;
 
 function init(){
+    canvas.addEventListener("click", function(e){
+        let bound = canvas.getBoundingClientRect();
+        x = e.clientX - bound.left - canvas.clientLeft;
+        y = e.clientY - bound.top - canvas.clientTop;
+        create(100);
+    });
     window.requestAnimationFrame(loop);
 }
 
@@ -16,7 +24,7 @@ function create(number){
     for(let i = 0; i < number; i++){
         Math.setSeed(seed);
         seed++;
-        particles.push(new Particle());
+        particles.push(new Particle(x,y));
     }
 }
 
@@ -41,10 +49,8 @@ var frame = 0;
 
 //Updates per second
 var frameDuration = 1000 / 60;
-var t = 0.0;
 function loop() {
     window.requestAnimationFrame(loop);
-
     var now = getCurrentTime();
     // Figure out how long it's been since the last invocation
     var delta = now - previous;
@@ -56,13 +62,14 @@ function loop() {
     // As long as the accumulated time passed is greater than your "timestep"
     while (lag >= frameDuration) {
         if(frame % 100 === 0){
-            create(1000);
+            //create(190);
         }
         //var deltaTime = Math.min(frameTime, dt);
         previousParticles = particles;
         // Update the game's internal state (i.e. physics, logic, etc)
         update();
         document.getElementById("number").innerText = particles.length + "";
+        console.log(Math.round(performance.now()/1000));
 
         // Subtract one "timestep" from the accumulator
         lag -= frameDuration;

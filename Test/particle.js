@@ -3,11 +3,11 @@ import {getRandomInt, getRandomFloat} from "../Util/random.js";
 import {ctx, canvas} from "./index.js";
 
 class Particle{
-    constructor(){
-        this.x = canvas.clientWidth / 2;
-        this.y = canvas.clientHeight / 2;
-        this.vx = getRandomFloat(-50, 50);  
-        this.vy = getRandomFloat(-50, 50);
+    constructor(x, y){
+        this.x = x;
+        this.y = y;
+        this.vx = getRandomFloat(-15, 15);
+        this.vy = getRandomFloat(-15, 15);
         this.blue = getRandomInt(0, 255);
         this.green = getRandomInt(0, 255);
         this.red = getRandomInt(0, 255);
@@ -15,8 +15,8 @@ class Particle{
         this.radius = getRandomInt(5, 10);
         this.lifeTime = getRandomInt(0, 0);
         this.i = 0;
-        this.acceleration = 1.2;
-        this.gravity = getRandomFloat(0, 0);
+        this.acceleration = getRandomFloat(1.1, 1.1);
+        this.gravity = getRandomFloat(0.5, 0.5);
     }
 
     update(){
