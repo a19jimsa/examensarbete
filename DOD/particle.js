@@ -30,20 +30,21 @@ class Particle{
         }
     }
 
-    update(){
-        for(let i = 0; i < this.number; i++){
-            this.x[i] += this.vx[i];
-        }
-        for(let i = 0; i < this.number; i++){
-            this.y[i] += this.vy[i];
-        }
-    }
+}
 
-    draw(){
-        for(let i = 0; i < this.number; i++){
-            ctx.fillStyle = "rgba("+ this.red[i] +", " + this.green[i] +", "+ this.blue[i] + ", "+ 0.8 +")";
-            ctx.fillRect(this.x[i], this.y[i], this.radius[i], this.radius[i]);
-        }
+Particle.prototype.update = function(){
+    for(let i = 0; i < this.number; i++){
+        this.x[i] += this.vx[i];
+    }
+    for(let i = 0; i < this.number; i++){
+        this.y[i] += this.vy[i];
+    }
+}
+
+Particle.prototype.draw = function(){
+    for(let i = 0; i < this.number; i++){
+        ctx.fillStyle = "rgba("+ this.red[i] +", " + this.green[i] +", "+ this.blue[i] + ", "+ 0.8 +")";
+        ctx.fillRect(this.x[i], this.y[i], this.radius[i], this.radius[i]);
     }
 }
 

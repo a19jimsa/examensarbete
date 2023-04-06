@@ -11,18 +11,18 @@ class Particle{
         this.red = getRandomFloat(0, 255);
         this.green = getRandomFloat(0, 255);
         this.blue = getRandomFloat(0, 255);
-        this.radius = getRandomFloat(5, 10);
+        this.radius = getRandomFloat(1, 10);
     }
+}
 
-    update(){
-        this.x += this.vx;
-        this.y += this.vy;
-    }
+Particle.prototype.update = function(){
+    this.x += this.vx;
+    this.y += this.vy;
+}
 
-    draw(){
-        ctx.fillStyle = "rgba("+this.red+", " + this.green +", " + this.blue +", " + 0.8 + ")";
-        ctx.fillRect(this.x, this.y, this.radius, this.radius);
-    }
+Particle.prototype.draw = function(){
+    ctx.fillStyle = "rgba("+this.red+", " + this.green +", " + this.blue +", " + 0.8 + ")";
+    ctx.fillRect(this.x, this.y, this.radius, this.radius);
 }
 
 export default Particle;

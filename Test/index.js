@@ -57,19 +57,19 @@ function loop() {
     if(delta > 1000){
         delta = frameDuration;
     }
+    previous = now;
     // Add the delta to the "accumulator"
     lag += delta;
     // As long as the accumulated time passed is greater than your "timestep"
     while (lag >= frameDuration) {
         if(frame % 100 === 0){
-            //create(190);
+            create(190);
         }
         //var deltaTime = Math.min(frameTime, dt);
         previousParticles = particles;
         // Update the game's internal state (i.e. physics, logic, etc)
         update();
         document.getElementById("number").innerText = particles.length + "";
-        console.log(Math.round(performance.now()/1000));
 
         // Subtract one "timestep" from the accumulator
         lag -= frameDuration;
@@ -82,8 +82,6 @@ function loop() {
     
     // Finally, render the current state to the screen
     draw();
-
-    previous = now;
 }
 
 function interpolate(lagOffset){
