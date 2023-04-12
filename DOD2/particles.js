@@ -2,20 +2,20 @@
 import {getRandomFloat, getRandomInt} from "../Util/random.js";
 import {ctx, canvas} from "./index.js";
 
-class Particle{
+class Particles{
     constructor(number){
         this.number = number;
     }
 
     init(){
-        this.x = new Array(this.number);
-        this.y = new Array(this.number);
-        this.vx = new Array(this.number);
-        this.vy = new Array(this.number);
-        this.red = new Array(this.number);
-        this.blue = new Array(this.number);
-        this.green = new Array(this.number);
-        this.radius = new Array(this.number);
+        this.x = new Float32Array(this.number);
+        this.y = new Float32Array(this.number);
+        this.vx = new Float32Array(this.number);
+        this.vy = new Float32Array(this.number);
+        this.red = new Float32Array(this.number);
+        this.blue = new Float32Array(this.number);
+        this.green = new Float32Array(this.number);
+        this.radius = new Float32Array(this.number);
 
         for(let i = 0; i < this.number; i++){
             Math.setSeed(i);
@@ -29,7 +29,6 @@ class Particle{
             this.radius[i] = getRandomFloat(5, 10);
         }
     }
-
 }
 
 Particle.prototype.update = function(){

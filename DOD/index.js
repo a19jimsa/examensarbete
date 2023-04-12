@@ -1,5 +1,5 @@
 "use strict";
-import Particle from "./particle.js";
+import Particles from "./particles.js";
 import store from "../Util/store.js";
 
 const canvas = document.getElementById("canvas");
@@ -18,7 +18,7 @@ function init(){
 }
 
 function create(number){
-    particles = new Particle(number);
+    particles = new Particles(number);
     particles.init();
 }
 
