@@ -16,8 +16,14 @@ class Particle{
 }
 
 Particle.prototype.update = function(){
-    this.x += this.vx;
-    this.y += this.vy;
+    let dx, dy, dist;
+    dx = 640 - this.x;
+    dy = 480 - this.y;
+    dist = Math.sqrt(dx*dx+dy*dy);
+    this.vx += dx / dist; // Gravitational force
+    this.vy += dy / dist;
+    this.x += this.vx*0.1; // Euler integration
+    this.y += this.vy*0.1;
 }
 
 Particle.prototype.draw = function(){

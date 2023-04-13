@@ -6,15 +6,19 @@ const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
 let particles;
-let mStartTime = 0;
 let mId = 0;
 let mFrame = 0;
 let data ="data:text/csv;charset=utf-8,\nUpdatetime, Rendertime, Sum, MS";
-let mRenderStartTime = 0;
+var mLastCall = performance.now();
+var mAccum = 0;
+//Updates per second
+var mUPS = 1000 / 60;
+var previousParticles;
 
 function init(){
-    create(100000);
-    window.requestAnimationFrame(loop);
+    create(20000);
+    previousParticles = particles;
+    loop();
 }
 
 function create(number){
@@ -28,47 +32,48 @@ function update(){
 
 function draw(){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    particles.draw();
+    particles.draw(arguments[0], arguments[1]);
 }
 
-var lastCall = performance.now();
-var accum = 0;
-//Updates per second
-var dt = 1000 / 20;
 function loop() {
     // Figure out how long it's been since the last invocation
-    var delta = performance.now() - lastCall;
+    const delta = performance.now() - mLastCall;
 
     //Cache the current timestep so we can figure out the next delta
-    lastCall = performance.now();
+    mLastCall = performance.now();
 
     // Add the delta to the "accumulator"
-    accum += delta;
+    mAccum += delta;
 
-    mStartTime = performance.now();
+    const mStartTime = performance.now();
     // As long as the accumulated time passed is greater than your "timestep"
-    while (accum >= dt) {
+    while (mAccum >= mUPS) {
+        // Get all particles before updating them for interpolate.
+        previousParticles = particles;
         // Update the game's internal state (i.e. physics, logic, etc)
         update();
-        console.log(Math.floor(performance.now()/1000));
         // Subtract one "timestep" from the accumulator
-        accum -= dt;
+        mAccum -= mUPS;
+        
     }
     let now = performance.now();
-    let elapsedUpdateTime = now - mStartTime;
-    //console.log(Math.floor(performance.now()/1000));
+    console.log(now - mStartTime);
+    const elapsedUpdateTime = now - mStartTime;
 
-    mRenderStartTime = performance.now();
+    const mRenderStartTime = performance.now();
+
+    const lagOffset = mAccum / mUPS;
+
     // Finally, render the current state to the screen
-    draw();
+    draw(lagOffset, previousParticles);
 
     //Save the elapsed time
     now = performance.now();
-    let elapsedRenderTime = now - mRenderStartTime;
-    let sum = elapsedRenderTime + elapsedUpdateTime;
+    const elapsedRenderTime = now - mRenderStartTime;
+    const sum = elapsedRenderTime + elapsedUpdateTime;
     data += ",\n" + elapsedUpdateTime + ", " + elapsedRenderTime + ", " + sum;
     mFrame++;
-    if(mFrame == 10){
+    if(mFrame >= 1000){
         window.cancelAnimationFrame(mId);
         store(data, "DOD2");
     }else{

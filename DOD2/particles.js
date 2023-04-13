@@ -26,21 +26,37 @@ class Particles{
             this.red[i] = getRandomFloat(0, 255);
             this.green[i] = getRandomFloat(0, 255);
             this.blue[i] = getRandomFloat(0, 255);
-            this.radius[i] = getRandomFloat(5, 10);
+            this.radius[i] = getRandomFloat(10, 20);
         }
     }
 }
 
 Particles.prototype.update = function(){
+    let dx, dy, dist;
     for(let i = 0; i < this.number; i++){
-        this.x[i] += this.vx[i];
+        dx = 640 - this.x[i];
+        dy = 480 - this.y[i];
+        dist = Math.sqrt(dx*dx+dy*dy);
+        this.vx[i] += dx / dist; // Gravitational force
+        this.vy[i] += dy / dist;
+        this.x[i] += this.vx[i]*0.1; // Euler integration
+        this.y[i] += this.vy[i]*0.1;
     }
-    for(let i = 0; i < this.number; i++){
-        this.y[i] += this.vy[i];
-    }
+
+    // for(let i = 0; i < this.number; i++){
+    //     this.x[i] += this.vx[i];
+    // }
+    // for(let i = 0; i < this.number; i++){
+    //     this.y[i] += this.vy[i];
+    // }
 }
 
-Particles.prototype.draw = function(){
+Particles.prototype.draw = function(lagOffset, state){
+    for(var i = 0; i < this.number; i++){
+        this.x[i] * lagOffset + state.x[i] * (1.0 - lagOffset);
+        this.y[i] * lagOffset + state.y[i] * (1.0 - lagOffset);
+    }
+
     for(let i = 0; i < this.number; i++){
         ctx.fillStyle = "rgba("+ this.red[i] +", " + this.green[i] +", "+ this.blue[i] + ", "+ 0.8 +")";
         ctx.fillRect(this.x[i], this.y[i], this.radius[i], this.radius[i]);

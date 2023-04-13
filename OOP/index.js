@@ -13,7 +13,7 @@ let data ="data:text/csv;charset=utf-8,\nUpdatetime, Rendertime, Sum, MS";
 let mRenderStartTime = 0;
 
 function init(){
-    create(100000);
+    create(2000);
     window.requestAnimationFrame(loop);
 }
 
@@ -74,7 +74,7 @@ function loop() {
     let sum = elapsedRenderTime + elapsedUpdateTime;
     data += ",\n" + elapsedUpdateTime + ", " + elapsedRenderTime + ", " + sum;
     mFrame++;
-    if(mFrame == 10){
+    if(mFrame == 1000){
         window.cancelAnimationFrame(mId);
         store(data, "OOP");
     }else{

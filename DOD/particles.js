@@ -33,11 +33,15 @@ class Particles{
 }
 
 Particles.prototype.update = function(){
+    let dx, dy, dist;
     for(let i = 0; i < this.number; i++){
-        this.x[i] += this.vx[i];
-    }
-    for(let i = 0; i < this.number; i++){
-        this.y[i] += this.vy[i];
+        dx = 640 - this.x[i];
+        dy = 480 - this.y[i];
+        dist = Math.sqrt(dx*dx+dy*dy);
+        this.vx[i] += dx / dist; // Gravitational force
+        this.vy[i] += dy / dist;
+        this.x[i] += this.vx[i]*0.1; // Euler integration
+        this.y[i] += this.vy[i]*0.1;
     }
 }
 
