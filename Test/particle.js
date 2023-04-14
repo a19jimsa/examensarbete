@@ -1,50 +1,36 @@
 "use strict";
 import {getRandomInt, getRandomFloat} from "../Util/random.js";
-import {ctx} from "./index.js";
+import {ctx, canvas} from "./index.js";
 
 class Particle{
-    constructor(x, y){
-        this.x = x;
-        this.y = y;
-        this.vx = getRandomFloat(-30, 30);
-        this.vy = getRandomFloat(-30, 30);
-        this.blue = getRandomInt(0, 0);
-        this.green = getRandomInt(0, 0);
-        this.red = getRandomInt(255, 255);
-        this.alpha = 1;
-        this.radius = getRandomInt(10, 20);
-        this.lifeTime = getRandomInt(0, 0);
-        this.i = 0;
-        this.acceleration = getRandomFloat(1.1, 1.5);
-        this.gravity = getRandomFloat(2, 3);
+    constructor(){
+        this.x = getRandomFloat(0, canvas.clientWidth);
+        this.y = getRandomFloat(0, canvas.clientHeight);
+        this.vx = getRandomFloat(-1, 1);
+        this.vy = getRandomFloat(-1, 1);
+        this.red = getRandomFloat(0, 255);
+        this.green = getRandomFloat(0, 255);
+        this.blue = getRandomFloat(0, 255);
+        this.radius = getRandomFloat(10, 20);
+        this.lifeTime = getRandomFloat(1, 200);
     }
+}
 
-    update(){
-        this.vx /= this.acceleration;
-        this.vy /= this.acceleration;
-        this.vy += this.gravity;
-        this.x += this.vx;
-        this.y += this.vy;
-        //this.green = 100 + Math.sin(this.i * 0.01) * 100 + this.lifeTime;
-        //this.green -= this.lifeTime-this.vy/2;
-        //this.i+=0.1;
-        this.alpha -= 0.0;
-        this.lifeTime += 0.5;
-    }
+Particle.prototype.update = function(){
+    let dx, dy, dist;
+    dx = 640 - this.x;
+    dy = 480 - this.y;
+    dist = Math.sqrt(dx*dx+dy*dy);
+    this.vx += dx / dist; // Gravitational force
+    this.vy += dy / dist;
+    this.x += this.vx*0.1; // Euler integration
+    this.y += this.vy*0.1;
+    this.lifeTime -= 0.5;
+}
 
-    draw(){
-        ctx.fillStyle = "rgba("+ this.red +", " + this.green +", " + this.blue +", " + this.alpha + ")";
-        ctx.beginPath();
-        ctx.fillRect(this.x, this.y, this.radius, this.radius);
-        ctx.fill();
-    }
-
-    isFinished(){
-        if(this.lifeTime >= 100){
-            return false;
-        }
-        return true;
-    }
+Particle.prototype.draw = function(){
+    ctx.fillStyle = "rgba("+this.red+", " + this.green +", " + this.blue +", " + 0.8 + ")";
+    ctx.fillRect(this.x, this.y, this.radius, this.radius);
 }
 
 export default Particle;

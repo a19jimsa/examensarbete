@@ -21,12 +21,12 @@ class Particles{
             Math.setSeed(i);
             this.x[i] = getRandomFloat(0, canvas.clientWidth);
             this.y[i] = getRandomFloat(0, canvas.clientHeight);
-            this.vx[i] = getRandomFloat(-1, 1);
-            this.vy[i] = getRandomFloat(-1, 1);
+            this.vx[i] = getRandomFloat(-10, 10);
+            this.vy[i] = getRandomFloat(-10, 10);
             this.red[i] = getRandomFloat(0, 255);
             this.green[i] = getRandomFloat(0, 255);
             this.blue[i] = getRandomFloat(0, 255);
-            this.radius[i] = getRandomFloat(10, 20);
+            this.radius[i] = getRandomFloat(5, 10);
         }
     }
 }
@@ -52,12 +52,9 @@ Particles.prototype.update = function(){
 }
 
 Particles.prototype.draw = function(lagOffset, state){
-    for(var i = 0; i < this.number; i++){
+    for(let i = 0; i < this.number; i++){
         this.x[i] * lagOffset + state.x[i] * (1.0 - lagOffset);
         this.y[i] * lagOffset + state.y[i] * (1.0 - lagOffset);
-    }
-
-    for(let i = 0; i < this.number; i++){
         ctx.fillStyle = "rgba("+ this.red[i] +", " + this.green[i] +", "+ this.blue[i] + ", "+ 0.8 +")";
         ctx.fillRect(this.x[i], this.y[i], this.radius[i], this.radius[i]);
     }
