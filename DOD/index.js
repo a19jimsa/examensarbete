@@ -13,7 +13,6 @@ let mFrame = 0;
 let data ="data:text/csv;charset=utf-8,\nUpdatetime, Rendertime, Sum, MS";
 var previous = performance.now();
 var lag = 0;
-var previousParticles = [];
 
 //Updates per second
 const MS_PER_UPDATE = 1000 / 20;
@@ -24,7 +23,6 @@ function init(){
     button.innerText = "Start";
     button.addEventListener("click", () => {
         previous = performance.now();
-        previousParticles = structuredClone(particles);
         loop();
 
     }, false);
@@ -59,13 +57,10 @@ function loop() {
     const mStartTime = performance.now();
     // As long as the accumulated time passed is greater than your "timestep"
     while (lag >= MS_PER_UPDATE) {
-        // Deep copy the particles
-        previousParticles = structuredClone(particles);
         // Update the game's internal state (i.e. physics, logic, etc)
         update();
         // Subtract one "timestep" from the accumulator
         lag -= MS_PER_UPDATE;
-        console.log(Math.floor(performance.now()/1000));
     }
 
     let now = performance.now();
@@ -74,7 +69,7 @@ function loop() {
     const mRenderStartTime = performance.now();
 
     // Finally, render the current state to the screen
-    draw(lag / MS_PER_UPDATE);
+    draw();
 
     //Save the elapsed time
     now = performance.now();

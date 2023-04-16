@@ -11,20 +11,18 @@ let particles = [];
 let mId = 0;
 let mFrame = 0;
 let data ="data:text/csv;charset=utf-8,\nUpdatetime, Rendertime, Sum, MS";
-var previous = performance.now();
+var previous = 0;
 var lag = 0;
-var previousParticles = [];
 
 //Updates per second
 const MS_PER_UPDATE = 1000 / 20;
 
 function init(){
-    create(1000);
+    create(2000);
     var button = document.createElement("button");
     button.innerText = "Start";
     button.addEventListener("click", () => {
         previous = performance.now();
-        previousParticles = structuredClone(particles);
         loop();
 
     }, false);
@@ -44,18 +42,16 @@ function update(){
     }
 }
 
-function draw(lagOffset){
+function draw(){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     for(let i = 0; i < particles.length; i++){
-        particles[i].x * lagOffset + previousParticles[i].x * (1.0 - lagOffset);
-        particles[i].y * lagOffset + previousParticles[i].y * (1.0 - lagOffset);
         particles[i].draw();
     }
 }
 
 function loop() {
     // Figure out how long it's been since the last invocation
-    let current = getCurrentTime();
+    let current = performance.now();
     let elapsed = current - previous;
 
     //Cache the current timestep so we can figure out the next delta
@@ -67,8 +63,6 @@ function loop() {
     const mStartTime = performance.now();
     // As long as the accumulated time passed is greater than your "timestep"
     while (lag >= MS_PER_UPDATE) {
-        // Deep copy the particles
-        previousParticles = structuredClone(particles);
         // Update the game's internal state (i.e. physics, logic, etc)
         update();
         // Subtract one "timestep" from the accumulator
@@ -76,13 +70,13 @@ function loop() {
     }
 
     let now = performance.now();
-    let elapsedUpdateTime = now - mStartTime;
-    //console.log(Math.floor(performance.now()/1000));
+
+    const elapsedUpdateTime = now - mStartTime;
 
     const mRenderStartTime = performance.now();
 
     // Finally, render the current state to the screen
-    draw(lag / MS_PER_UPDATE);
+    draw();
 
     //Save the elapsed time
     now = performance.now();

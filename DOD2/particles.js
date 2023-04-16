@@ -51,10 +51,8 @@ Particles.prototype.update = function(){
     // }
 }
 
-Particles.prototype.draw = function(lagOffset, state){
+Particles.prototype.draw = function(){
     for(let i = 0; i < this.number; i++){
-        this.x[i] * lagOffset + state.x[i] * (1.0 - lagOffset);
-        this.y[i] * lagOffset + state.y[i] * (1.0 - lagOffset);
         ctx.fillStyle = "rgba("+ this.red[i] +", " + this.green[i] +", "+ this.blue[i] + ", "+ 0.8 +")";
         ctx.fillRect(this.x[i], this.y[i], this.radius[i], this.radius[i]);
     }
