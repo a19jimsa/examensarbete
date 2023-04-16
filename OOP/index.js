@@ -8,11 +8,9 @@ const ctx = canvas.getContext("2d");
 
 //Global variables for window
 let particles = [];
-let mStartTime = 0;
 let mId = 0;
 let mFrame = 0;
 let data ="data:text/csv;charset=utf-8,\nUpdatetime, Rendertime, Sum, MS";
-let mRenderStartTime = 0;
 var previous = performance.now();
 var lag = 0;
 var previousParticles = [];
@@ -21,9 +19,16 @@ var previousParticles = [];
 const MS_PER_UPDATE = 1000 / 20;
 
 function init(){
-    create(2000);
-    previousParticles = particles;
-    loop();
+    create(1000);
+    var button = document.createElement("button");
+    button.innerText = "Start";
+    button.addEventListener("click", () => {
+        previous = performance.now();
+        previousParticles = structuredClone(particles);
+        loop();
+
+    }, false);
+    document.body.appendChild(button);
 }
 
 function create(number){
@@ -59,9 +64,10 @@ function loop() {
     // Add the delta to the "accumulator"
     lag += elapsed;
 
-    mStartTime = performance.now();
+    const mStartTime = performance.now();
     // As long as the accumulated time passed is greater than your "timestep"
     while (lag >= MS_PER_UPDATE) {
+        // Deep copy the particles
         previousParticles = structuredClone(particles);
         // Update the game's internal state (i.e. physics, logic, etc)
         update();
@@ -73,7 +79,7 @@ function loop() {
     let elapsedUpdateTime = now - mStartTime;
     //console.log(Math.floor(performance.now()/1000));
 
-    mRenderStartTime = performance.now();
+    const mRenderStartTime = performance.now();
 
     // Finally, render the current state to the screen
     draw(lag / MS_PER_UPDATE);
