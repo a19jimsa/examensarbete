@@ -26,7 +26,7 @@ class Particles{
             this.red[i] = getRandomFloat(0, 255);
             this.green[i] = getRandomFloat(0, 255);
             this.blue[i] = getRandomFloat(0, 255);
-            this.radius[i] = getRandomFloat(5, 10);
+            this.radius[i] = getRandomFloat(1, 10);
         }
     }
 

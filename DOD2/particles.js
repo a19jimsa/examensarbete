@@ -21,12 +21,12 @@ class Particles{
             Math.setSeed(i);
             this.x[i] = getRandomFloat(0, canvas.clientWidth);
             this.y[i] = getRandomFloat(0, canvas.clientHeight);
-            this.vx[i] = getRandomFloat(-10, 10);
-            this.vy[i] = getRandomFloat(-10, 10);
+            this.vx[i] = getRandomFloat(-1, 1);
+            this.vy[i] = getRandomFloat(-1, 1);
             this.red[i] = getRandomFloat(0, 255);
             this.green[i] = getRandomFloat(0, 255);
             this.blue[i] = getRandomFloat(0, 255);
-            this.radius[i] = getRandomFloat(5, 10);
+            this.radius[i] = getRandomFloat(1, 10);
         }
     }
 }

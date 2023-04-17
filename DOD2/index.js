@@ -18,14 +18,16 @@ var lag = 0;
 const MS_PER_UPDATE = 1000 / 20;
 
 function init(){
-    create(1000);
+    create(5000);
     var button = document.createElement("button");
     button.innerText = "Start";
     button.addEventListener("click", () => {
         previous = performance.now();
         loop();
+
     }, false);
     document.body.appendChild(button);
+    button.click();
 }
 
 function create(number){
@@ -37,14 +39,14 @@ function update(){
     particles.update();
 }
 
-function draw(lagOffset){
+function draw(){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    particles.draw(lagOffset, previousParticles);
+    particles.draw();
 }
 
 function loop() {
     // Figure out how long it's been since the last invocation
-    const current = getCurrentTime();
+    const current = performance.now();
     const elapsed = current - previous;
 
     //Cache the current timestep so we can figure out the next delta
@@ -64,12 +66,11 @@ function loop() {
 
     let now = performance.now();
     let elapsedUpdateTime = now - mStartTime;
-    //console.log(Math.floor(performance.now()/1000));
 
     const mRenderStartTime = performance.now();
 
     // Finally, render the current state to the screen
-    draw(lag / MS_PER_UPDATE);
+    draw();
 
     //Save the elapsed time
     now = performance.now();
@@ -77,10 +78,25 @@ function loop() {
     const sum = elapsedRenderTime + elapsedUpdateTime;
     data += ",\n" + elapsedUpdateTime + ", " + elapsedRenderTime + ", " + sum;
 
+    //Add frame
     mFrame++;
     if(mFrame === 1000){
+        let counter = window.localStorage.getItem("counter");
+        if(counter == null){
+            counter = 1;
+        }
+        counter++;
+        window.localStorage.setItem("counter", counter);
         window.cancelAnimationFrame(mId);
-        store(data, "DOD2");
+        if(counter <= 10){
+            window.location.reload();
+        }else if(counter <= 20){
+            store(data, "DOD2");
+            window.location.reload();
+        }else{
+            alert("Simulation was successful!");
+            window.localStorage.clear();
+        }
     }else{
         mId = window.requestAnimationFrame(loop);
     }

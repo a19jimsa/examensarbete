@@ -18,7 +18,7 @@ var lag = 0;
 const MS_PER_UPDATE = 1000 / 20;
 
 function init(){
-    create(2000);
+    create(5000);
     var button = document.createElement("button");
     button.innerText = "Start";
     button.addEventListener("click", () => {
@@ -27,6 +27,7 @@ function init(){
 
     }, false);
     document.body.appendChild(button);
+    button.click();
 }
 
 function create(number){
@@ -82,16 +83,31 @@ function loop() {
     now = performance.now();
     const elapsedRenderTime = now - mRenderStartTime;
     const sum = elapsedRenderTime + elapsedUpdateTime;
-    data += ",\n" + elapsedUpdateTime + ", " + elapsedRenderTime + ", " + sum;
+    data += ",\n" + elapsedUpdateTime + ", " + elapsedRenderTime + ", " + sum + ", " + particles.length;
 
     mFrame++;
     if(mFrame === 1000){
+        let counter = window.localStorage.getItem("counter");
+        if(counter == null){
+            counter = 1;
+        }
+        counter++;
+        window.localStorage.setItem("counter", counter);
         window.cancelAnimationFrame(mId);
-        store(data, "OOP");
+        if(counter <= 10){
+            window.location.reload();
+        }else if(counter <= 20){
+            store(data, "OOP");
+            window.location.reload();
+        }else{
+            alert("Simulation was successful!");
+            window.localStorage.clear();
+        }
     }else{
         mId = window.requestAnimationFrame(loop);
     }
 }
+
 
 window.onload = () => {
     init();
