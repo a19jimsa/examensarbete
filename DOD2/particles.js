@@ -8,14 +8,14 @@ class Particles{
     }
 
     init(){
-        this.x = new Float32Array(this.number);
-        this.y = new Float32Array(this.number);
-        this.vx = new Float32Array(this.number);
-        this.vy = new Float32Array(this.number);
-        this.red = new Float32Array(this.number);
-        this.blue = new Float32Array(this.number);
-        this.green = new Float32Array(this.number);
-        this.radius = new Float32Array(this.number);
+        this.x = new Float64Array(this.number);
+        this.y = new Float64Array(this.number);
+        this.vx = new Float64Array(this.number);
+        this.vy = new Float64Array(this.number);
+        this.red = new Float64Array(this.number);
+        this.blue = new Float64Array(this.number);
+        this.green = new Float64Array(this.number);
+        this.radius = new Float64Array(this.number);
 
         for(let i = 0; i < this.number; i++){
             Math.setSeed(i);
