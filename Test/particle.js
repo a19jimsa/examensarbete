@@ -11,8 +11,7 @@ class Particle{
         this.red = getRandomFloat(0, 255);
         this.green = getRandomFloat(0, 255);
         this.blue = getRandomFloat(0, 255);
-        this.radius = getRandomFloat(10, 20);
-        this.lifeTime = getRandomFloat(1, 200);
+        this.radius = getRandomFloat(1, 10);
     }
 }
 
@@ -25,11 +24,10 @@ Particle.prototype.update = function(){
     this.vy += dy / dist;
     this.x += this.vx*0.1; // Euler integration
     this.y += this.vy*0.1;
-    this.lifeTime -= 0.5;
 }
 
 Particle.prototype.draw = function(){
-    ctx.fillStyle = "rgba("+this.red+", " + this.green +", " + this.blue +", " + 0.8 + ")";
+    ctx.fillStyle = "rgba("+ this.red + ", " + this.green +", " + this.blue + ", " + 0.8 + ")";
     ctx.fillRect(this.x, this.y, this.radius, this.radius);
 }
 

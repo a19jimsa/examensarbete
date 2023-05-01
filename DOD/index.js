@@ -1,7 +1,6 @@
 "use strict";
 import Particles from "./particles.js";
 import store from "../Util/store.js";
-import { getCurrentTime } from "../Util/time.js";
 
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
@@ -11,14 +10,25 @@ let particles = [];
 let mId = 0;
 let mFrame = 0;
 let data ="data:text/csv;charset=utf-8,\nUpdatetime, Rendertime, Sum, MS";
-var previous = performance.now();
-var lag = 0;
+let previous = 0;
+let lag = 0;
+let amount = 0;
+let iterations = 0; 
 
 //Updates per second
 const MS_PER_UPDATE = 1000 / 20;
 
 function init(){
-    create(5000);
+    amount = window.localStorage.getItem("amount");
+    iterations = window.localStorage.getItem("iterations");
+    if(amount == null){
+        amount = 1000;
+    }
+    if(iterations == null){
+        iterations = 0;
+    }
+    console.log(amount);
+    create(amount);
     var button = document.createElement("button");
     button.innerText = "Start";
     button.addEventListener("click", () => {
@@ -74,12 +84,15 @@ function loop() {
 
     //Save the elapsed time
     now = performance.now();
-    const elapsedRenderTime = performance.now() - mRenderStartTime;
+    const elapsedRenderTime = now - mRenderStartTime;
     const sum = elapsedRenderTime + elapsedUpdateTime;
-    data += ",\n" + elapsedUpdateTime + ", " + elapsedRenderTime + ", " + sum;
-
+    data += ",\n" + elapsedUpdateTime + ", " + elapsedRenderTime + ", " + sum + ", " + window.performance.memory.usedJSHeapSize;
     //Add frame
     mFrame++;
+    checkFrame();
+}
+ 
+function checkFrame(){
     if(mFrame === 1000){
         let counter = window.localStorage.getItem("counter");
         if(counter == null){
@@ -91,11 +104,22 @@ function loop() {
         if(counter <= 10){
             window.location.reload();
         }else if(counter <= 20){
-            store(data, "DOD");
+            store(data, amount + "DOD");
             window.location.reload();
         }else{
-            alert("Simulation was successful!");
-            window.localStorage.clear();
+            //Increase after 10 succesful test
+            amount = Number(amount) + 1000;
+            window.localStorage.setItem("counter", 0);
+            window.localStorage.setItem("amount", amount);
+            iterations++;
+            if(iterations < 15){
+                window.localStorage.setItem("iterations", iterations);
+                window.location.reload();
+            }else{
+                window.localStorage.clear();
+                alert("Done!");
+            }
+            
         }
     }else{
         mId = window.requestAnimationFrame(loop);
