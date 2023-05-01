@@ -42,13 +42,6 @@ Particles.prototype.update = function(){
         this.x[i] += this.vx[i]*0.1; // Euler integration
         this.y[i] += this.vy[i]*0.1;
     }
-
-    // for(let i = 0; i < this.number; i++){
-    //     this.x[i] += this.vx[i];
-    // }
-    // for(let i = 0; i < this.number; i++){
-    //     this.y[i] += this.vy[i];
-    // }
 }
 
 Particles.prototype.draw = function(){
