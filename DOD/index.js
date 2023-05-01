@@ -118,7 +118,7 @@ function checkFrame(){
                 window.location.reload();
             }else{
                 window.localStorage.clear();
-                alert("Done!");
+                window.location.href = "../DOD2/"
             }
             
         }

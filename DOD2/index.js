@@ -97,7 +97,7 @@ function checkFrame(){
     if(mFrame === 1000){
         let counter = window.localStorage.getItem("counter");
         if(counter == null){
-            counter = 0;
+            counter = 1;
         }
         counter++;
         window.localStorage.setItem("counter", counter);
