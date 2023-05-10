@@ -22,7 +22,7 @@ function init() {
   amount = window.localStorage.getItem("amount");
   iterations = window.localStorage.getItem("iterations");
   if (amount == null) {
-    amount = iterations ** 2 * 1000;
+    amount = 1 ** 2 * 1000;
   }
   if (iterations == null) {
     iterations = 1;
