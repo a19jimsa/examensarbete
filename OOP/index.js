@@ -144,7 +144,6 @@ function checkFrame() {
 }
 
 window.onload = () => {
-  particles = null;
   init();
 };
 
