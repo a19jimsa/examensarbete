@@ -6,7 +6,7 @@ const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
 //Global variables for window
-let particles = [];
+let particles;
 let mId = 0;
 let mFrame = 0;
 let data = "data:text/csv;charset=utf-8,\nUpdatetime, Rendertime, Sum, Memory";
@@ -138,6 +138,7 @@ function checkFrame() {
 }
 
 window.onload = () => {
+  particles = null;
   init();
 };
 

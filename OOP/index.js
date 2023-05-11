@@ -65,8 +65,8 @@ function draw() {
 
 function loop() {
   // Figure out how long it's been since the last invocation
-  let current = performance.now();
-  let elapsed = current - previous;
+  const current = performance.now();
+  const elapsed = current - previous;
 
   //Cache the current timestep so we can figure out the next delta
   previous = current;
@@ -144,6 +144,7 @@ function checkFrame() {
 }
 
 window.onload = () => {
+  particles = null;
   init();
 };
 

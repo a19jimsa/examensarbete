@@ -8,14 +8,14 @@ class Particles {
   }
 
   init() {
-    this.x = new Array(this.number);
-    this.y = new Array(this.number);
-    this.vx = new Array(this.number);
-    this.vy = new Array(this.number);
-    this.red = new Array(this.number);
-    this.blue = new Array(this.number);
-    this.green = new Array(this.number);
-    this.radius = new Array(this.number);
+    this.x = new Array();
+    this.y = new Array();
+    this.vx = new Array();
+    this.vy = new Array();
+    this.red = new Array();
+    this.blue = new Array();
+    this.green = new Array();
+    this.radius = new Array();
 
     for (let i = 0; i < this.number; i++) {
       Math.setSeed(i);
@@ -32,7 +32,9 @@ class Particles {
 }
 
 Particles.prototype.update = function () {
-  let dx = 0, dy = 0, dist = 0;
+  let dx = 0,
+    dy = 0,
+    dist = 0;
   for (let i = 0; i < this.number; i++) {
     dx = 640 - this.x[i];
     dy = 480 - this.y[i];

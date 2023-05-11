@@ -6,7 +6,7 @@ const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
 //Global variables for window
-let particles = [];
+let particles;
 let mId = 0;
 let mFrame = 0;
 let data = "data:text/csv;charset=utf-8,\nUpdatetime, Rendertime, Sum, Memory";
@@ -59,8 +59,8 @@ function draw() {
 
 function loop() {
   // Figure out how long it's been since the last invocation
-  let current = performance.now();
-  let elapsed = current - previous;
+  const current = performance.now();
+  const elapsed = current - previous;
 
   //Cache the current timestep so we can figure out the next delta
   previous = current;
@@ -129,7 +129,7 @@ function checkFrame() {
         window.location.reload();
       } else {
         window.localStorage.clear();
-        window.location.href = "../DOD2/";
+        alert("Done!");
       }
     }
   } else {
@@ -138,6 +138,7 @@ function checkFrame() {
 }
 
 window.onload = () => {
+  particles = null;
   init();
 };
 
