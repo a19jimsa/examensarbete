@@ -116,7 +116,7 @@ function checkFrame() {
     if (counter <= 10) {
       window.location.reload();
     } else if (counter <= 20) {
-      store(data, amount + "DOD");
+      store(data, amount + "DODSecond");
       window.location.reload();
     } else {
       //Increase after 10 succesful test
@@ -129,7 +129,7 @@ function checkFrame() {
         window.location.reload();
       } else {
         window.localStorage.clear();
-        alert("Done!");
+        window.location.href = "../DOD2/";
       }
     }
   } else {
