@@ -116,7 +116,7 @@ function checkFrame() {
     if (counter <= 10) {
       window.location.reload();
     } else if (counter <= 20) {
-      store(data, amount + "DODSecond");
+      store(data, amount + "DOD");
       window.location.reload();
     } else {
       //Increase after 10 succesful test

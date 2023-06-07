@@ -16,24 +16,22 @@ class Particle {
 }
 
 Particle.prototype.update = function () {
-  // let dx = 0,
-  //   dy = 0,
-  //   dist = 0;
-  // dx = 640 - this.x;
-  // dy = 480 - this.y;
-  // dist = Math.sqrt(dx * dx + dy * dy);
-  // this.vx += dx / dist; // Gravitational force
-  // this.vy += dy / dist;
-  // this.x += this.vx * 0.1; // Euler integration
-  // this.y += this.vy * 0.1;
-  // for (let i = 0; i < this.number; i++) {
-  //   this.x[i] += this.vx[i];
-  // }
-  // for (let i = 0; i < this.number; i++) {
-  //   this.y[i] += this.vy[i];
-  // }
-  this.x += this.vx;
-  this.y += this.vy;
+  let dx = 0,
+    dy = 0,
+    dist = 0;
+  dx = 640 - this.x;
+  dy = 480 - this.y;
+  dist = Math.sqrt(dx * dx + dy * dy);
+  this.vx += dx / dist; // Gravitational force
+  this.vy += dy / dist;
+  this.x += this.vx * 0.1; // Euler integration
+  this.y += this.vy * 0.1;
+  for (let i = 0; i < this.number; i++) {
+    this.x[i] += this.vx[i];
+  }
+  for (let i = 0; i < this.number; i++) {
+    this.y[i] += this.vy[i];
+  }
 };
 
 Particle.prototype.draw = function () {
